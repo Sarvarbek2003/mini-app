@@ -1,10 +1,11 @@
 const http = require('http')
 const fs = require('fs/promises')
+const PORT = process.env.PORT || 4000
 const server = http.createServer( async (request, response) => {
  	if (request.url === "/api/users" && request.method === 'GET'){
 		response.setHeader('Content-Type', 'application/json')
 		response.end(
-			await fs.readFile('../database/data.json')
+			await fs.readFile('./database/data.json')
 			)
 
 	}else if (request.url === "/api/users" && request.method === 'POST'){
@@ -12,7 +13,7 @@ const server = http.createServer( async (request, response) => {
 		let tr = true
 		request.on('data', buffer => data+=buffer)
 		request.on('end', async () => {
-			let users = await fs.readFile('../database/data.json','utf-8')
+			let users = await fs.readFile('./database/data.json','utf-8')
 			users = users ? JSON.parse(users) : []
 
 			let id = 100000 + Math.random() * 900000 | 0    
@@ -35,14 +36,14 @@ const server = http.createServer( async (request, response) => {
 			if (!tr) return 
 			users.push(newuser)
 			response.end(JSON.stringify(id))
-			await fs.writeFile('../database/data.json',JSON.stringify(users,null,4))
+			await fs.writeFile('./database/data.json',JSON.stringify(users,null,4))
 		})
 
 	}else if (request.url === "/api/users/profile" && request.method === 'POST'){
 		let data  = ''
 		request.on('data', buff => data+=buff)
 		request.on('end', async () => {
-			let users = await fs.readFile('../database/data.json','utf-8')
+			let users = await fs.readFile('./database/data.json','utf-8')
 			users = users ? JSON.parse(users) : []
 			let newuser = JSON.parse(data)
 			users.map(el => {
@@ -55,38 +56,38 @@ const server = http.createServer( async (request, response) => {
 					users.text = text
 				}
 			})
-			await fs.writeFile('../database/data.json',JSON.stringify(users,null,4))
+			await fs.writeFile('./database/data.json',JSON.stringify(users,null,4))
 			response.end('recuired')
 		})
 		
 	}else if (request.url === "/users" && request.method === 'GET'){
 		response.setHeader('Content-Type', 'text/html')
 		response.end(
-			await fs.readFile('../user.html')
+			await fs.readFile('./user.html')
 		)	
 
 	}else if (request.url === "/newuser" && request.method === 'GET'){
 		response.setHeader('Content-Type', 'text/html')
 		response.end(
-			await fs.readFile('../login.html')
+			await fs.readFile('./login.html')
 		)		
 
 	}else if (request.url === "/" && request.method === 'GET'){
 		response.setHeader('Content-Type', 'text/html')
 		response.end(
-			await fs.readFile('../index.html')
+			await fs.readFile('./index.html')
 		)		
 
 	}else if (request.url === "/post" && request.method === 'GET'){
 		response.setHeader('Content-Type', 'text/html')
 		response.end(
-			await fs.readFile('../post.html')
+			await fs.readFile('./post.html')
 		)		
 
 	}else if (request.url === "/profile" && request.method === 'GET'){
 		response.setHeader('Content-Type', 'text/html')
 		response.end(
-			await fs.readFile('../profile.html')
+			await fs.readFile('./profile.html')
 		)		
 
 	}else {
@@ -94,4 +95,4 @@ const server = http.createServer( async (request, response) => {
 	}
 } )
 
-server.listen(4000, () => console.log("Server is runing http://192.168.10.10:4000"))
+server.listen(PORT, () => console.log("Server is runing http://192.168.10.10:4000"))
