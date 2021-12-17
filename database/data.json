@@ -1,0 +1,24 @@
+[
+    {
+        "user": "Sarvarbek",
+        "parol": "12345",
+        "text": [
+            {
+                "title": "NodeJs",
+                "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi doloremque asperiores culpa obcaecati alias ea ipsa vitae velit quam unde!"
+            }
+        ],
+        "id": 955429
+    },
+    {
+        "user": "Nodir",
+        "parol": "456789",
+        "text": [
+            {
+                "title": "JavaScript",
+                "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi doloremque asperiores culpa obcaecati alias ea ipsa vitae velit quam unde!"
+            }
+        ],
+        "id": 423791
+    }
+]
